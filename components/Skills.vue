@@ -1,15 +1,27 @@
 <template>
-  <section class="px-6 md:px-20 py-20 bg-slate-800 text-white">
-    <h2 class="text-3xl font-bold mb-8 animate-fadeIn">Skills</h2>
+  <section
+    class="px-6 md:px-20 py-20 text-white relative"
+    style="background-image: url('/images/bg-vue.png'); background-size: cover; background-position: center;"
+  >
+    <!-- Overlay for readability -->
+    <div class="bg-slate-900 bg-opacity-80 p-10 rounded-xl">
+      <h2 class="text-3xl font-bold mb-8 animate-fadeIn">Skills</h2>
 
-    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
-      <div
-        v-for="skill in skills"
-        :key="skill.name"
-        class="flex flex-col items-center bg-white/5 backdrop-blur-md p-4 rounded-xl hover:scale-105 transition animate-fadeIn"
-      >
-        <div class="w-12 h-12 mb-2" v-html="skill.svg"></div>
-        <span class="text-center">{{ skill.name }}</span>
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+        <div
+          v-for="skill in skills"
+          :key="skill.name"
+          class="flex flex-col items-center bg-white/10 backdrop-blur-sm p-6 rounded-xl 
+                 transition-transform transform hover:scale-110 hover:-translate-y-2 
+                 hover:shadow-2xl animate-fadeIn"
+        >
+          <!-- Animated SVG -->
+          <div 
+            class="w-12 h-12 mb-3 transition-transform duration-500 hover:rotate-12 hover:scale-125"
+            v-html="skill.svg"
+          ></div>
+          <span class="text-center font-medium">{{ skill.name }}</span>
+        </div>
       </div>
     </div>
   </section>
