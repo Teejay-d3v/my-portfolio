@@ -12,8 +12,7 @@
         </p>
         <div class="flex gap-4 text-primary">
           <a href="https://exam-ghibli-app.vercel.app/" target="_blank" class="hover:underline">Live Demo</a>
-          <a href="https://github.com/Teejay-d3v/ghibli-app" target="_blank" class="hover:underline">Source Code</a>
-        </div>
+</div>
       </div>
 
       <!-- Fresh & Clean Helmet Project -->
@@ -25,8 +24,7 @@
         </p>
         <div class="flex gap-4 text-primary">
           <a href="https://freshand-clean-helmet.vercel.app/" target="_blank" class="hover:underline">Live Demo</a>
-          <a href="https://github.com/Teejay-d3v/freshandclean-helmet" target="_blank" class="hover:underline">Source Code</a>
-        </div>
+</div>
       </div>
 
       <!-- Nuxt Tables Project -->
@@ -38,8 +36,7 @@
         </p>
         <div class="flex gap-4 text-primary">
           <a href="https://nuxt-tables.vercel.app/" target="_blank" class="hover:underline">Live Demo</a>
-          <a href="https://github.com/Teejay-d3v/my-nuxt-tables" target="_blank" class="hover:underline">Source Code</a>
-        </div>
+</div>
       </div>
     </div>
   </section>

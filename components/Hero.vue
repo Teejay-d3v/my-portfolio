@@ -1,31 +1,56 @@
 <template>
-  <section class="relative min-h-screen flex flex-col justify-center px-6 md:px-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+  <section class="relative min-h-screen flex flex-col justify-center px-6 md:px-20 overflow-hidden">
     
-    <h1 class="text-5xl md:text-7xl font-extrabold text-white leading-tight animate-fadeIn">
-      Hi, I’m <span class="text-primary">TJ</span>
-    </h1>
+    <!-- Background Image -->
+    <div
+      class="absolute inset-0 bg-[url('/images/bg-vue2.png')] bg-cover bg-center bg-no-repeat"
+    ></div>
 
-    <p class="mt-4 md:mt-6 text-lg md:text-xl text-gray-300 max-w-2xl animate-fadeIn delay-200">
-      I build <span class="text-primary font-semibold">modern</span>, 
-      <span class="text-primary font-semibold">responsive</span>, and 
-      <span class="text-primary font-semibold">high-performance</span> web applications using 
-      <span class="text-primary font-semibold">Nuxt 3</span> & <span class="text-primary font-semibold">Vue 3</span>.
-    </p>
+    <!-- Dark Overlay -->
+    <div class="absolute inset-0 bg-slate-900/50"></div>
 
-    <div class="mt-8 flex flex-wrap gap-4 animate-fadeIn delay-400">
-      <a href="#projects" class="px-6 py-3 bg-white text-black font-semibold rounded-lg hover:bg-gray-200 transition">
-        View Projects
-      </a>
-      <a 
-        href="/Timothy-John-Lozada-CV.pdf" 
-        download 
-        class="px-6 py-3 bg-white text-black font-semibold rounded-lg hover:bg-gray-200 transition"
-      >
-        Download CV
-      </a>
+    <!-- Glass Content -->
+<div
+  class="relative z-10 p-8 md:p-12 rounded-2xl
+         bg-white/10 backdrop-blur-lg border border-white/20
+         max-w-3xl mx-auto flex flex-col gap-6"
+>
+  <h1 class="text-5xl md:text-7xl font-extrabold text-white leading-tight animate-fadeIn">
+    Hi, I’m <span class="text-primary">TJ</span>
+  </h1>
 
+  <p class="text-lg md:text-xl text-gray-200 animate-fadeIn delay-200">
+    I’m a <span class="text-primary font-semibold">frontend developer</span> specializing in building 
+    <span class="text-primary font-semibold">interactive</span>, 
+    <span class="text-primary font-semibold">responsive</span>, and 
+    <span class="text-primary font-semibold">high-performance</span> web interfaces. 
+    I work with <span class="text-primary font-semibold">Nuxt 3</span>, 
+    <span class="text-primary font-semibold">Vue 3</span>, and modern 
+    <span class="text-primary font-semibold">JavaScript/TypeScript</span> workflows to craft seamless user experiences.
+  </p>
 
-    </div>
+  <p class="text-gray-300 animate-fadeIn delay-300">
+    I’m passionate about writing clean, maintainable code and turning designs into pixel-perfect, interactive web applications that delight users.
+  </p>
+
+  <div class="flex flex-wrap gap-4 animate-fadeIn delay-400">
+    <a
+      href="#projects"
+      class="px-6 py-3 bg-white/80 text-black font-semibold rounded-lg hover:bg-white transition"
+    >
+      View Projects
+    </a>
+
+    <a
+      href="/Timothy-John-Lozada-CV.pdf"
+      download
+      class="px-6 py-3 bg-white/80 text-black font-semibold rounded-lg hover:bg-white transition"
+    >
+      Download CV
+    </a>
+  </div>
+</div>
+
 
   </section>
 </template>
