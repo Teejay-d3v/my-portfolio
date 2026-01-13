@@ -7,7 +7,7 @@
     ></div>
 
     <!-- Dark Overlay -->
-    <div class="absolute inset-0 bg-slate-900/50"></div>
+    <div class="absolute inset-0 bg-slate-900/70"></div>
 
     <!-- Glass Content -->
 <div
@@ -24,14 +24,8 @@
     <span class="text-primary font-semibold">interactive</span>, 
     <span class="text-primary font-semibold">responsive</span>, and 
     <span class="text-primary font-semibold">high-performance</span> web interfaces. 
-    I work with <span class="text-primary font-semibold">Nuxt 3</span>, 
-    <span class="text-primary font-semibold">Vue 3</span>, and modern 
-    <span class="text-primary font-semibold">JavaScript/TypeScript</span> workflows to craft seamless user experiences.
   </p>
 
-  <p class="text-gray-300 animate-fadeIn delay-300">
-    I’m passionate about writing clean, maintainable code and turning designs into pixel-perfect, interactive web applications that delight users.
-  </p>
 
   <div class="flex flex-wrap gap-4 animate-fadeIn delay-400">
     <a
