@@ -1,7 +1,7 @@
 <template>
   <section
     id="projects"
-    class="relative min-h-screen flex items-center px-6 md:px-20 overflow-hidden"
+    class="relative min-h-screen flex items-center p-6 md:px-20 overflow-hidden"
   >
     <!-- Background -->
     <div class="absolute inset-0 bg-slate-900"></div>

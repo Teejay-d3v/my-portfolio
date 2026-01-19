@@ -1,7 +1,7 @@
 <template>
   <section
     id="contact"
-    class="relative min-h-screen flex items-center px-6 md:px-20 overflow-hidden"
+    class="relative min-h-screen flex items-center p-6 md:px-20 overflow-hidden"
   >
     <!-- Background -->
     <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-slate-800"></div>
