@@ -4,6 +4,7 @@
   <Skills />
   <Projects />
   <Contact />
+  <Navbar />
 </template>
 
 <script setup>
@@ -12,4 +13,5 @@ import About from '@/components/About.vue'
 import Skills from '@/components/Skills.vue'
 import Projects from '@/components/Projects.vue'
 import Contact from '@/components/Contact.vue'
+import Navbar from '@/components/Navbar.vue'
 </script>

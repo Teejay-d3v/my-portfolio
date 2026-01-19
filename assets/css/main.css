@@ -11,6 +11,10 @@
 .animate-fadeIn {
   animation: fadeIn 1s ease forwards;
 }
+html {
+  scroll-behavior: smooth;
+}
+
 
 .animate-fadeIn.delay-200 { animation-delay: 0.2s; }
 .animate-fadeIn.delay-400 { animation-delay: 0.4s; }

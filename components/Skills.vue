@@ -1,31 +1,111 @@
 <template>
   <section
-    class="px-6 md:px-20 py-20 text-white relative"
-    style="background-image: url('/images/bg-vue.png'); background-size: cover; background-position: center;"
+    id="skills"
+    class="relative min-h-screen flex items-center justify-center px-6 md:px-20 overflow-hidden"
   >
-    <!-- Overlay for readability -->
-    <div class="bg-slate-900 bg-opacity-80 p-10 rounded-xl">
-      <h2 class="text-3xl font-bold mb-8 animate-fadeIn">Skills</h2>
+    <!-- Background Gradients -->
+    <div class="absolute inset-0 bg-gradient-to-br from-slate-900 to-black"></div>
+    <div class="absolute inset-0 bg-black/40"></div>
 
-      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+    <!-- Desktop Glass Container -->
+    <div
+      class="relative z-10 w-full h-full
+             bg-white/10 backdrop-blur-xl
+             border border-blue-400/50
+             rounded-2xl p-8 md:p-12
+             shadow-[0_0_20px_rgba(59,130,246,0.5),0_0_40px_rgba(59,130,246,0.3)]
+             hover:shadow-[0_0_30px_rgba(59,130,246,0.7),0_0_50px_rgba(59,130,246,0.5)]
+             transition-shadow duration-300 flex-col justify-center gap-12 hidden sm:flex"
+    >
+      <h2 class="text-4xl md:text-5xl font-bold text-white text-center animate-fadeIn">
+        My Skills
+      </h2>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-10 justify-items-center">
         <div
           v-for="skill in skills"
           :key="skill.name"
-          class="flex flex-col items-center bg-white/10 backdrop-blur-sm p-6 rounded-xl 
-                 transition-transform transform hover:scale-110 hover:-translate-y-2 
-                 hover:shadow-2xl animate-fadeIn"
+          class="flex flex-col items-center justify-center
+                 bg-white/10 backdrop-blur-sm p-10 rounded-2xl
+                 hover:scale-110 hover:-translate-y-2 hover:shadow-xl hover:shadow-blue-400/50
+                 transition-transform transform duration-300 animate-fadeIn w-48 h-48"
         >
-          <!-- Animated SVG -->
-          <div 
-            class="w-12 h-12 mb-3 transition-transform duration-500 hover:rotate-12 hover:scale-125"
+          <div
+            class="w-20 h-20 mb-4 transition-transform duration-500 hover:rotate-12 hover:scale-125"
             v-html="skill.svg"
           ></div>
-          <span class="text-center font-medium">{{ skill.name }}</span>
+          <span class="text-center text-white font-semibold text-xl">{{ skill.name }}</span>
         </div>
       </div>
     </div>
+
+    <!-- Mobile Glass Container -->
+    <div
+      class="relative z-10 w-full bg-white/10 backdrop-blur-xl
+             border border-blue-400/50 rounded-2xl p-6
+             shadow-[0_0_20px_rgba(59,130,246,0.5),0_0_40px_rgba(59,130,246,0.3)]
+             flex flex-col gap-8 sm:hidden"
+    >
+      <h2 class="text-3xl font-bold text-white text-center animate-fadeIn">
+        My Skills
+      </h2>
+
+<!-- Mobile Grid -->
+<div class="grid grid-cols-3 gap-5 justify-items-center">
+  <div
+    v-for="skill in skills"
+    :key="skill.name"
+    class="flex flex-col items-center justify-center
+           bg-white/10 backdrop-blur-sm p-4 rounded-xl
+           hover:scale-105 hover:shadow-md hover:shadow-blue-400/50
+           transition-transform transform duration-200 animate-fadeIn w-20 h-20"
+  >
+    <div
+      class="w-10 h-10 mb-1 transition-transform duration-500 hover:rotate-12 hover:scale-110"
+      v-html="skill.svg"
+    ></div>
+    <span class="text-center text-white font-medium text-xs">{{ skill.name }}</span>
+  </div>
+</div>
+
+    </div>
+
+    <div
+      class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"
+    >
+      <a href="#projects" class="hover:text-primary transition">
+        <svg
+          class="w-6 h-6 text-orange-400"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M19 9l-7 7-7-7"
+          />
+        </svg>
+      </a>
+    </div>
   </section>
 </template>
+
+<style>
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeIn {
+  animation: fadeIn 1s forwards;
+}
+</style>
+
+
+
+
 
 <script setup>
 const skills = [
