@@ -10,62 +10,47 @@
     <div class="absolute inset-0 bg-black/40"></div>
 
     <!-- Content -->
-<div
-  class="glowing-card bg-white/5 backdrop-blur-xl rounded-2xl p-6
-         hover:scale-105 hover:shadow-2xl transition animate-fadeIn"
->
+    <div
+      class="relative z-10
+            bg-white/10 backdrop-blur-lg
+            border border-white/20
+            rounded-2xl p-6 md:p-10
+            transition animate-fadeIn
+            glowing-border-blue"
+
+    >
       <h2 class="text-4xl font-bold mb-10 text-white animate-fadeIn">
         Projects
       </h2>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
         <!-- Ghibli App -->
         <div
-          class="bg-white/5 backdrop-blur-xl rounded-2xl p-6
-                 hover:scale-105 hover:shadow-2xl transition
-                 animate-fadeIn"
+          class="bg-white/5 backdrop-blur-xl
+                 border border-white/20
+                 rounded-2xl p-6
+                 hover:scale-105 hover:-translate-y-2 hover:shadow-xl hover:shadow-blue-400/50
+                 transition-transform transform"
         >
-          <img
-            src="/projects/ghibli-app.png"
-            alt="Ghibli App screenshot"
-            class="rounded-xl mb-4"
-          />
+          <div class="h-48 w-full overflow-hidden rounded-xl mb-4">
+            <img
+              src="/projects/ghibli-app.png"
+              alt="Ghibli App screenshot"
+              class="w-full h-full object-cover"
+            />
+          </div>
           <h3 class="text-xl font-semibold mb-2 text-white">
             Ghibli App
           </h3>
           <p class="mb-4 text-gray-300">
-            Nuxt 3 app fetching Studio Ghibli movies from an API. Features pagination, search, and responsive design.
+            Nuxt 3 app fetching Studio Ghibli movies from an API.
+            Features pagination, search, and responsive design.
           </p>
           <a
             href="https://exam-ghibli-app.vercel.app/"
             target="_blank"
-            class="text-primary hover:underline"
-          >
-            Live Demo →
-          </a>
-        </div>
-
-        <!-- Fresh & Clean Helmet -->
-        <div
-          class="bg-white/5 backdrop-blur-xl rounded-2xl p-6
-                 hover:scale-105 hover:shadow-2xl transition
-                 animate-fadeIn delay-200"
-        >
-          <img
-            src="/projects/freshandclean-helmet.png"
-            alt="Fresh & Clean Helmet screenshot"
-            class="rounded-xl mb-4"
-          />
-          <h3 class="text-xl font-semibold mb-2 text-white">
-            Fresh & Clean Helmet
-          </h3>
-          <p class="mb-4 text-gray-300">
-            A product catalog and ordering web app. Built with Nuxt 3 & Tailwind CSS, fully responsive and clean UI.
-          </p>
-          <a
-            href="https://freshand-clean-helmet.vercel.app/"
-            target="_blank"
-            class="text-primary hover:underline"
+            class="text-blue-400 hover:underline"
           >
             Live Demo →
           </a>
@@ -73,34 +58,71 @@
 
         <!-- Nuxt Tables -->
         <div
-          class="bg-white/5 backdrop-blur-xl rounded-2xl p-6
-                 hover:scale-105 hover:shadow-2xl transition
-                 animate-fadeIn delay-400"
+          class="bg-white/5 backdrop-blur-xl
+                 border border-white/20
+                 rounded-2xl p-6
+                 hover:scale-105 hover:-translate-y-2 hover:shadow-xl hover:shadow-blue-400/50
+                 transition-transform transform"
         >
-          <img
-            src="/projects/nuxt-tables.png"
-            alt="Nuxt Tables screenshot"
-            class="rounded-xl mb-4"
-          />
+          <div class="h-48 w-full overflow-hidden rounded-xl mb-4">
+            <img
+              src="/projects/nuxt-tables.png"
+              alt="Nuxt Tables screenshot"
+              class="w-full h-full object-cover"
+            />
+          </div>
           <h3 class="text-xl font-semibold mb-2 text-white">
             Nuxt Tables
           </h3>
           <p class="mb-4 text-gray-300 text-sm sm:text-base">
-            Interactive tables demonstrating modern Nuxt 3 & Tailwind CSS patterns with API-driven data handling.
+            Interactive tables demonstrating modern Nuxt 3 & Tailwind CSS
+            patterns with API-driven data handling.
           </p>
           <a
             href="https://nuxt-tables.vercel.app/"
             target="_blank"
-            class="text-primary hover:underline"
+            class="text-blue-400 hover:underline"
           >
             Live Demo →
           </a>
         </div>
 
-        
+        <!-- Budget Planner -->
+        <div
+          class="bg-white/5 backdrop-blur-xl
+                 border border-white/20
+                 rounded-2xl p-6
+                 hover:scale-105 hover:-translate-y-2 hover:shadow-xl hover:shadow-blue-400/50
+                 transition-transform transform "
+        >
+          <div class="h-48 w-full overflow-hidden rounded-xl mb-4">
+            <img
+              src="/projects/budgetplanner.png"
+              alt="Nuxt Budget Planner screenshot"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-white">
+            Budget Planner
+          </h3>
+          <p class="mb-4 text-gray-300 text-sm sm:text-base">
+            A personal finance tracker built with Nuxt 3 and Tailwind CSS.
+            Features income & expense tracking, category filtering, and
+            a clean dashboard-style UI.
+          </p>
+          <a
+            href="https://budget-planner-azure.vercel.app/personal-budget-planner/"
+            target="_blank"
+            class="text-blue-400 hover:underline"
+          >
+            Live Demo →
+          </a>
+        </div>
+
       </div>
-      
     </div>
+
+    <!-- Scroll Indicator -->
     <div
       class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"
     >
@@ -123,36 +145,64 @@
     </div>
   </section>
 </template>
-<style lang="css" scoped>
 
-  .glow-card {
-  border: 1px solid rgba(255,255,255,0.2);
-  box-shadow: 0 0 10px rgba(255,255,255,0.1);
-  transition: all 0.3s ease-in-out;
+<style scoped>
+/* Floating / blob animations */
+@keyframes slow-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.05); opacity: 0.8; }
+}
+.animate-slow-pulse {
+  animation: slow-pulse 8s ease-in-out infinite;
+}
+
+@keyframes blob {
+  0%, 100% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(20px, -10px) scale(1.05); }
+  66% { transform: translate(-15px, 10px) scale(0.95); }
+}
+.animate-blob {
+  animation: blob 10s infinite ease-in-out;
+}
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeIn {
+  animation: fadeIn 1s forwards;
+}
+.animate-fadeIn.delay-200 { animation-delay: 0.2s; }
+.animate-fadeIn.delay-400 { animation-delay: 0.4s; }
+.animate-fadeIn.delay-600 { animation-delay: 0.6s; }
+
+/* Blue glowing border (STRONGER HOVER, SAME STYLE) */
+.glowing-border-blue {
   position: relative;
+  border: 1px solid rgba(59, 130, 246, 0.45);
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.4),
+    0 0 12px rgba(59, 130, 246, 0.35),
+    inset 0 0 12px rgba(255, 255, 255, 0.06);
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
 }
-.glow-card::before {
-  content: '';
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  border-radius: inherit;
-  background: linear-gradient(270deg, #facc15, #3b82f6, #ec4899, #facc15);
-  background-size: 600% 600%;
-  z-index: -1;
-  filter: blur(6px);
-  opacity: 0.7;
-  animation: glow 10s ease infinite;
-}
-.glow-card:hover::before {
-  opacity: 1;
-}
-@keyframes glow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+
+/* Bigger, clearer hover */
+.glowing-border-blue:hover {
+  transform: translateY(-8px);
+  border-color: rgba(59, 130, 246, 0.75);
+  box-shadow:
+    0 30px 70px rgba(0, 0, 0, 0.6),
+    0 0 25px rgba(59, 130, 246, 0.5),
+    0 0 45px rgba(59, 130, 246, 0.35),
+    inset 0 0 18px rgba(255, 255, 255, 0.1);
 }
 
 </style>

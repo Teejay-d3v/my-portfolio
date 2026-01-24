@@ -3,8 +3,9 @@
     id="about"
     class="relative min-h-screen flex items-center px-6 md:px-20 overflow-hidden"
   >
-    <!-- Background Gradient -->
-    <div class="absolute inset-0 bg-gradient-to-br from-slate-900 to-slate-800"></div>
+    <div
+      class="absolute inset-0 bg-[url('/images/bg-vue2.png')] bg-cover bg-center bg-no-repeat"
+    ></div>
 
     <!-- Overlay -->
     <div class="absolute inset-0 bg-black/40"></div>
