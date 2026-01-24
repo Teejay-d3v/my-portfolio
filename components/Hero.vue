@@ -27,7 +27,7 @@
     <!-- Glass Content Card with glowing border -->
     <div
       class="relative z-10 p-8 md:p-12 rounded-2xl
-             bg-white/10 backdrop-blur-lg border border-blue-400
+             bg-black/70 backdrop-blur-lg border border-blue-400
              max-w-3xl
              mx-auto md:mx-0 md:mr-auto
              flex flex-col gap-6 shadow-inner glowing-card"

@@ -3,8 +3,10 @@
     id="projects"
     class="relative min-h-screen flex items-center p-6 md:px-20 overflow-hidden"
   >
-    <!-- Background -->
-    <div class="absolute inset-0 bg-slate-900"></div>
+   <!-- Background Image -->
+    <div
+      class="absolute inset-0 bg-[url('/images/bg-vue2.png')] bg-cover bg-center bg-no-repeat"
+    ></div>
 
     <!-- Overlay -->
     <div class="absolute inset-0 bg-black/40"></div>

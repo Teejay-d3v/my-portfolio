@@ -3,12 +3,13 @@
     id="about"
     class="relative min-h-screen flex items-center px-6 md:px-20 overflow-hidden"
   >
+   <!-- Background Image -->
     <div
       class="absolute inset-0 bg-[url('/images/bg-vue2.png')] bg-cover bg-center bg-no-repeat"
     ></div>
 
-    <!-- Overlay -->
-    <div class="absolute inset-0 bg-black/40"></div>
+   <!-- Base Dark Overlay -->
+    <div class="absolute inset-0 bg-slate-900/70"></div>
 
     <!-- Floating Blobs -->
     <div
@@ -21,7 +22,7 @@
     <!-- Glass Content Card (aligned right) -->
     <div
       class="relative z-10 w-full max-w-3xl
-             bg-white/10 backdrop-blur-lg border border-white/20
+             bg-black/50 backdrop-blur-lg border border-white/20
              rounded-2xl p-8 md:p-12
              flex flex-col gap-6 shadow-inner
              ml-auto glowing-border-blue"
@@ -43,7 +44,7 @@
         and crafting <span class="text-white font-semibold">great user experiences</span>.
       </p>
 
-      <p class="text-gray-400 leading-relaxed animate-fadeIn delay-600">
+      <p class="text-white leading-relaxed animate-fadeIn delay-600">
         Passionate about <span class="text-white font-semibold">responsive design</span>, 
         <span class="text-white font-semibold">performance optimization</span>, and continuously learning new technologies
         to stay ahead in modern frontend development.
