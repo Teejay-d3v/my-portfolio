@@ -121,6 +121,38 @@
           </a>
         </div>
 
+
+        <!-- Todo Board -->
+        <div
+          class="bg-white/5 backdrop-blur-xl
+                border border-white/20
+                rounded-2xl p-6
+                hover:scale-105 hover:-translate-y-2 hover:shadow-xl hover:shadow-blue-400/50
+                transition-transform transform"
+        >
+          <div class="h-48 w-full overflow-hidden rounded-xl mb-4">
+            <img
+              src="/projects/todoboard.png"
+              alt="Todo Board screenshot"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-white">
+            Todo Board
+          </h3>
+          <p class="mb-4 text-gray-300 text-sm sm:text-base">
+            A fully interactive Kanban-style Todo board built with Nuxt 3, Vue 3, Tailwind CSS, and draggable cards. Features task priority, status columns, due dates, and a smooth drag-and-drop interface.
+          </p>
+          <a
+            href="https://nuxt-todo-board.vercel.app/"
+            target="_blank"
+            class="text-blue-400 hover:underline"
+          >
+            Live Demo →
+          </a>
+        </div>
+
+
       </div>
     </div>
 
