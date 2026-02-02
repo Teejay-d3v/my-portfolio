@@ -51,7 +51,7 @@
           </p>
           <a
             href="https://exam-ghibli-app.vercel.app/"
-            target="_blank"
+            
             class="text-blue-400 hover:underline"
           >
             Live Demo →
@@ -82,7 +82,7 @@
           </p>
           <a
             href="https://nuxt-tables.vercel.app/"
-            target="_blank"
+            
             class="text-blue-400 hover:underline"
           >
             Live Demo →
@@ -114,7 +114,7 @@
           </p>
           <a
             href="https://budget-planner-azure.vercel.app/personal-budget-planner/"
-            target="_blank"
+            
             class="text-blue-400 hover:underline"
           >
             Live Demo →
@@ -145,7 +145,7 @@
           </p>
           <a
             href="https://nuxt-todo-board.vercel.app/"
-            target="_blank"
+            
             class="text-blue-400 hover:underline"
           >
             Live Demo →
