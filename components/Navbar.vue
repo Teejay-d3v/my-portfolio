@@ -1,140 +1,102 @@
 <template>
-  <!-- NAVBAR -->
-  <header
-    class="fixed top-0 left-0 w-full z-50
-           bg-slate-900/70 backdrop-blur-lg
-           border-b border-white/10"
-  >
-    <nav class="px-6 md:px-20 py-4 flex items-center justify-between text-white">
-
-      <!-- Logo -->
-      <NuxtLink
-        to="/"
-        class="text-xl font-bold tracking-wide hover:text-primary transition"
-      >
-        TJ
-      </NuxtLink>
-
-      <!-- Desktop Links -->
-      <ul class="hidden md:flex gap-8 text-sm font-medium">
-        <li><a href="#home" class="hover:text-primary transition">Home</a></li>
-        <li><a href="#about" class="hover:text-primary transition">About</a></li>
-        <li><a href="#skills" class="hover:text-primary transition">Skills</a></li>
-        <li><a href="#projects" class="hover:text-primary transition">Projects</a></li>
-        <li><a href="#contact" class="hover:text-primary transition">Contact</a></li>
-      </ul>
-
-      <!-- Mobile Button -->
-      <button
-        @click="isOpen = true"
-        class="md:hidden focus:outline-none"
-        aria-label="Open menu"
-      >
-        <svg
-          class="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          viewBox="0 0 24 24"
+  <nav class="fixed top-0 left-0 right-0 z-40 backdrop-blur-md bg-slate-900/80 border-b border-slate-700/30">
+    <div class="container mx-auto px-6 py-4">
+      <div class="flex justify-between items-center">
+        <!-- Logo -->
+        <a 
+          href="#hero" 
+          class="text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent hover:scale-105 transition-transform"
+          @click.prevent="scrollToSection('hero')"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M4 6h16M4 12h16M4 18h16"
-          />
-        </svg>
-      </button>
-    </nav>
-  </header>
+          YourName
+        </a>
 
-  <!-- MOBILE MENU OVERLAY (OUTSIDE HEADER) -->
-  <transition name="fade">
-    <div
-      v-if="isOpen"
-      class="fixed inset-0 z-[60] bg-black/50"
-      @click="closeMenu"
-    />
-  </transition>
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center space-x-8">
+          <a 
+            v-for="link in navLinks" 
+            :key="link.id"
+            :href="`#${link.id}`"
+            class="text-sm font-medium text-slate-300 hover:text-cyan-400 transition-colors relative group"
+            @click.prevent="scrollToSection(link.id)"
+          >
+            {{ link.name }}
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-400 group-hover:w-full transition-all duration-300"></span>
+          </a>
+          
+          <!-- Optional: Theme toggle -->
+          <button 
+            class="p-2 rounded-lg bg-slate-800/50 hover:bg-slate-700/50 transition-colors"
+            @click="toggleTheme"
+            aria-label="Toggle theme"
+          >
+            <svg class="w-5 h-5 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+            </svg>
+          </button>
+        </div>
 
-  <!-- MOBILE MENU PANEL -->
-  <transition name="slide-right">
-    <aside
-      v-if="isOpen"
-      class="fixed inset-0 z-[70]
-             h-[100dvh] w-full max-w-sm ml-auto
-             bg-slate-900 text-white
-             flex flex-col px-6 py-8"
-    >
-      <!-- Header -->
-      <div class="flex items-center justify-between mb-10">
-        <span class="text-lg font-semibold tracking-wide">Menu</span>
-        <button @click="closeMenu" aria-label="Close menu">
-          ✕
+        <!-- Mobile menu button -->
+        <button 
+          class="md:hidden p-2 rounded-lg bg-slate-800/50 hover:bg-slate-700/50 transition-colors"
+          @click="isMobileMenuOpen = !isMobileMenuOpen"
+          aria-label="Toggle menu"
+        >
+          <svg class="w-6 h-6 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path v-if="isMobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            <path v-else stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
         </button>
       </div>
 
-      <!-- Links -->
-      <ul class="flex flex-col gap-6 text-lg font-medium">
-        <li><a @click="closeMenu" href="#home" class="menu-link">Home</a></li>
-        <li><a @click="closeMenu" href="#about" class="menu-link">About</a></li>
-        <li><a @click="closeMenu" href="#skills" class="menu-link">Skills</a></li>
-        <li><a @click="closeMenu" href="#projects" class="menu-link">Projects</a></li>
-        <li><a @click="closeMenu" href="#contact" class="menu-link">Contact</a></li>
-      </ul>
-
-      <!-- Footer -->
-      <div class="mt-auto pt-10 text-sm text-white/60">
-        © 2026 · TJ Portfolio
+      <!-- Mobile Menu -->
+      <div 
+        v-if="isMobileMenuOpen" 
+        class="md:hidden mt-4 pb-4 space-y-4"
+      >
+        <a 
+          v-for="link in navLinks" 
+          :key="link.id"
+          :href="`#${link.id}`"
+          class="block py-2 text-slate-300 hover:text-cyan-400 transition-colors"
+          @click.prevent="scrollToSection(link.id); isMobileMenuOpen = false"
+        >
+          {{ link.name }}
+        </a>
       </div>
-    </aside>
-  </transition>
+    </div>
+  </nav>
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 
-const isOpen = ref(false)
+const isMobileMenuOpen = ref(false)
 
-const closeMenu = () => {
-  isOpen.value = false
+const navLinks = [
+  { id: 'hero', name: 'Home' },
+  { id: 'about', name: 'About' },
+  { id: 'skills', name: 'Skills' },
+  { id: 'projects', name: 'Projects' },
+  { id: 'contact', name: 'Contact' }
+]
+
+const scrollToSection = (sectionId) => {
+  const element = document.getElementById(sectionId)
+  if (element) {
+    const offset = 80 // Navbar height
+    const elementPosition = element.getBoundingClientRect().top
+    const offsetPosition = elementPosition + window.pageYOffset - offset
+    
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    })
+  }
 }
 
-/* Lock background scroll */
-watch(isOpen, (open) => {
-  document.body.style.overflow = open ? 'hidden' : ''
-})
+const toggleTheme = () => {
+  // Implement theme toggle logic
+  console.log('Toggle theme')
+}
 </script>
-
-<style scoped>
-/* Fade backdrop */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.25s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-/* Slide panel */
-.slide-right-enter-active,
-.slide-right-leave-active {
-  transition: transform 0.3s ease;
-}
-.slide-right-enter-from,
-.slide-right-leave-to {
-  transform: translateX(100%);
-}
-
-/* Menu links */
-.menu-link {
-  display: block;
-  padding: 12px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  transition: color 0.2s ease;
-}
-
-.menu-link:hover {
-  color: var(--color-primary, #38bdf8);
-}
-</style>
