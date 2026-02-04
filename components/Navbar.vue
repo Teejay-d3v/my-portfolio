@@ -8,7 +8,7 @@
           class="text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent hover:scale-105 transition-transform"
           @click.prevent="scrollToSection('hero')"
         >
-          YourName
+          TJLozada
         </a>
 
         <!-- Desktop Menu -->
@@ -24,16 +24,7 @@
             <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-400 group-hover:w-full transition-all duration-300"></span>
           </a>
           
-          <!-- Optional: Theme toggle -->
-          <button 
-            class="p-2 rounded-lg bg-slate-800/50 hover:bg-slate-700/50 transition-colors"
-            @click="toggleTheme"
-            aria-label="Toggle theme"
-          >
-            <svg class="w-5 h-5 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
-            </svg>
-          </button>
+
         </div>
 
         <!-- Mobile menu button -->
