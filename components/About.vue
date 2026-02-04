@@ -156,9 +156,11 @@ import { ref } from 'vue'
 
 // Quick facts data
 const quickFacts = ref([
-  { text: 'Vue.js & Nuxt.js Specialist' },
-  { text: 'UI/UX Focused' },
-  { text: 'Performance Driven' },
+  { text: 'Vue.js & Nuxt.js Frontend developer' },
+  { text: 'Responsive & Mobile-First Development' },
+  { text: 'Performance & Optimization Focused' },
+  { text: 'Clean & Maintainable Code' },
+  { text: 'Integrates dynamic data via API' },
   { text: 'Continuous Learner' },
   { text: 'Open to Projects' },
 ])
