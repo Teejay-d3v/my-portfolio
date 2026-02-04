@@ -1,7 +1,7 @@
 <template>
   <section
     id="skills"
-    class="relative min-h-screen flex items-center justify-center px-6 md:px-20 overflow-hidden"
+    class="min-h-screen relative flex items-center justify-center px-6 md:px-20 overflow-hidden"
   >
     <!-- Background -->
 
@@ -33,7 +33,7 @@
     </div>
 
     <!-- Content -->
-    <div class="relative z-10 w-full max-w-7xl mx-auto">
+    <div  class="relative z-10 w-full max-w-7xl mx-auto">
       <div class="text-center mb-12 animate-fadeIn">
         <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">
           My <span class="text-blue-400">Tech Stack</span>
@@ -72,7 +72,7 @@
         </div>
 
         <!-- Backend & Tools -->
-        <div class="group bg-white/5 backdrop-blur-xl border border-white/20 rounded-2xl p-6 hover:border-blue-400/50 transition-all duration-300 animate-fadeIn delay-200">
+        <div  class="group bg-white/5 backdrop-blur-xl border border-white/20 rounded-2xl p-6 hover:border-blue-400/50 transition-all duration-300 animate-fadeIn delay-200">
           <div class="flex items-center gap-3 mb-6">
             <div class="w-12 h-12 rounded-xl bg-green-500/20 flex items-center justify-center">
               <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -125,27 +125,7 @@
         </div>
       </div>
 
-      <!-- Featured Skills Highlight -->
-      <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">
-        <div
-          v-for="featuredSkill in featuredSkills"
-          :key="featuredSkill.name"
-          class="group relative bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-blue-400/50 transition-all duration-500 animate-fadeIn"
-          :style="`animation-delay: ${featuredSkill.delay}ms`"
-        >
-          <div class="flex flex-col items-center text-center">
-            <div
-              class="w-16 h-16 mb-4 transition-all duration-500 group-hover:scale-110 group-hover:rotate-12"
-              v-html="featuredSkill.svg"
-            ></div>
-            <h4 class="text-lg font-semibold text-white mb-2">{{ featuredSkill.name }}</h4>
-            <p class="text-sm text-gray-400">{{ featuredSkill.description }}</p>
-            
-            <!-- Glow effect on hover -->
-            <div class="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/0 to-cyan-500/0 group-hover:from-blue-500/10 group-hover:to-cyan-500/10 transition-all duration-500"></div>
-          </div>
-        </div>
-      </div>
+
 
       <!-- Learning Next Section -->
       <div class="mt-12 bg-gradient-to-r from-blue-900/20 to-cyan-900/20 backdrop-blur-sm border border-blue-400/20 rounded-2xl p-6 animate-fadeIn delay-600">

@@ -1,7 +1,7 @@
 <template>
   <section
     id="about"
-    class="relative py-16 md:py-20 flex items-center px-4 sm:px-6 lg:px-12 xl:px-20 overflow-hidden"
+    class="min-h-screen  relative py-16 md:py-20 flex items-center px-4 sm:px-6 lg:px-12 xl:px-20 overflow-hidden"
   >
     <!-- Base Dark Overlay -->
     <div class="absolute inset-0 bg-black/40"></div>
@@ -19,7 +19,7 @@
     </div>
 
     <!-- Main Container - Wider and more compact -->
-    <div class="relative z-10 w-full max-w-7xl mx-auto">
+    <div class="relative  z-10 w-full max-w-7xl mx-auto">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
         
         <!-- Left Column: Profile Image (3 columns wide) -->
@@ -42,7 +42,7 @@
         </div>
 
         <!-- Center Column: About Content (6 columns wide) -->
-        <div class="lg:col-span-6">
+        <div class="lg:col-span-6 ">
           <div
             class="bg-black/50 backdrop-blur-lg border border-white/20 rounded-2xl p-6 md:p-8 flex flex-col gap-5 shadow-inner glowing-border-blue animate-fadeIn delay-100"
           >
@@ -82,18 +82,7 @@
               </div>
             </div>
 
-            <!-- Development Philosophy - More compact -->
-            <div class="bg-gradient-to-r from-blue-900/20 to-cyan-900/20 rounded-lg p-4 my-3 border border-blue-400/20">
-              <h4 class="text-base font-semibold text-white mb-1.5 flex items-center gap-2">
-                <svg class="w-4 h-4 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                </svg>
-                Philosophy
-              </h4>
-              <p class="text-gray-300 text-sm">
-                Clean, maintainable code • Component-driven architecture • Performance-first approach • Responsive design
-              </p>
-            </div>
+  
           </div>
         </div>
 
@@ -128,21 +117,6 @@
               <div class="text-xs text-gray-400">{{ stat.label }}</div>
             </div>
           </div>
-
-          <!-- Current Focus - Compact -->
-          <div class="bg-slate-800/40 rounded-xl p-4 border border-slate-700/50">
-            <div class="flex items-center gap-2 mb-2">
-              <div class="w-6 h-6 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center">
-                <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
-                </svg>
-              </div>
-              <h4 class="text-sm font-semibold text-white">Focus</h4>
-            </div>
-            <p class="text-xs text-gray-300">
-              Performance optimization • Serverless • Open-source
-            </p>
-          </div>
         </div>
       </div>
     </div>
@@ -156,11 +130,10 @@ import { ref } from 'vue'
 
 // Quick facts data
 const quickFacts = ref([
-  { text: 'Vue.js & Nuxt.js Frontend developer' },
+  { text: 'Frontend developer' },
   { text: 'Responsive & Mobile-First Development' },
   { text: 'Performance & Optimization Focused' },
   { text: 'Clean & Maintainable Code' },
-  { text: 'Integrates dynamic data via API' },
   { text: 'Continuous Learner' },
   { text: 'Open to Projects' },
 ])
@@ -171,10 +144,14 @@ const specialties = ref([
   'Nuxt 3',
   'TypeScript',
   'Tailwind CSS',
-  'Component Architecture',
+  'Component-Based UI',
   'API Integration',
-  'Performance',
-  'Responsive'
+  'Responsive Design',
+  'Performance Optimization',
+  'State Management',
+  'Routing & Navigation',
+  'Clean Code',
+  'Debugging & Troubleshooting',
 ])
 
 // Stats

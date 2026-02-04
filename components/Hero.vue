@@ -1,7 +1,7 @@
 <template>
   <section
     id="home"
-    class="relative py-16 md:py-20 flex items-center px-4 sm:px-6 lg:px-12 xl:px-20 overflow-hidden"
+    class="min-h-screen relative py-16 md:py-20 flex items-center px-4 sm:px-6 lg:px-12 xl:px-20 overflow-hidden"
   >
 
 
@@ -62,7 +62,7 @@
               
               <h1 class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white leading-tight mb-4 animate-fadeIn delay-100">
                 Hi, I'm <span class="text-blue-400 relative">
-                  TeeJay
+                  T-Jay
                   <span class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full animate-pulse"></span>
                 </span>
               </h1>

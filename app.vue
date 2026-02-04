@@ -7,7 +7,7 @@
     <div class="particles-container absolute inset-0 z-1"></div>
     
     <!-- Content layer -->
-    <div class="relative z-10">
+    <div class="relative z-10 ">
       <NuxtPage />
     </div>
   </div>
