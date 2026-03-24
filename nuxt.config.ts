@@ -1,8 +1,17 @@
 export default defineNuxtConfig({
   modules: ['@nuxtjs/tailwindcss'],
-  css: ['~/assets/css/main.css'],
+  css: ['~/assets/css/main.css', '~/assets/css/portfolio.css'],
   nitro: {
     preset: 'vercel'
+  },
+  runtimeConfig: {
+    public: {
+      emailjs: {
+        serviceId: process.env.NUXT_PUBLIC_EMAILJS_SERVICE_ID || '',
+        templateId: process.env.NUXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',
+        publicKey: process.env.NUXT_PUBLIC_EMAILJS_PUBLIC_KEY || ''
+      }
+    }
   },
   app: {
     head: {
@@ -12,7 +21,7 @@ export default defineNuxtConfig({
         { name: 'viewport', content: 'width=device-width, initial-scale=1' }
       ],
       link: [
-        { rel: 'icon', type: 'image/png', href: '/favicon.png' }
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
       ]
     }
   }

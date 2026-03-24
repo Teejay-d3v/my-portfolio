@@ -1,68 +1,103 @@
 <template>
-  <nav class="fixed top-0 left-0 right-0 z-40 backdrop-blur-md bg-slate-900/80 border-b border-slate-700/30">
-    <div class="container mx-auto px-6 py-4">
-      <div class="flex justify-between items-center">
-        <!-- Logo -->
-        <a 
-          href="#hero" 
-          class="text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent hover:scale-105 transition-transform"
+  <nav
+    class="fixed inset-x-0 top-0 z-50 transition-all duration-300"
+    :class="isScrolled ? 'bg-slate-950/80 backdrop-blur-xl border-b border-cyan-400/20 shadow-[0_10px_30px_rgba(2,6,23,0.45)]' : 'bg-transparent'"
+  >
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex h-20 items-center justify-between gap-4">
+        <a
+          href="#hero"
+          class="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-slate-900/70 px-4 py-2 text-sm font-semibold text-cyan-200 transition hover:border-cyan-300 hover:text-white"
           @click.prevent="scrollToSection('hero')"
         >
+          <span class="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.8)]"></span>
           TJLozada
         </a>
 
-        <!-- Desktop Menu -->
-        <div class="hidden md:flex items-center space-x-8">
-          <a 
-            v-for="link in navLinks" 
+        <div class="hidden items-center gap-2 rounded-full border border-slate-700/70 bg-slate-900/65 p-1 md:flex">
+          <a
+            v-for="link in navLinks"
             :key="link.id"
             :href="`#${link.id}`"
-            class="text-sm font-medium text-slate-300 hover:text-cyan-400 transition-colors relative group"
+            :aria-current="activeSection === link.id ? 'page' : undefined"
+            class="rounded-full px-4 py-2 text-sm font-medium transition-all duration-200"
+            :class="activeSection === link.id ? 'bg-gradient-to-r from-sky-500 to-cyan-500 text-white shadow-[0_8px_24px_rgba(14,165,233,0.35)]' : 'text-slate-300 hover:text-white'"
             @click.prevent="scrollToSection(link.id)"
           >
             {{ link.name }}
-            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-400 group-hover:w-full transition-all duration-300"></span>
           </a>
-          
-
         </div>
 
-        <!-- Mobile menu button -->
-        <button 
-          class="md:hidden p-2 rounded-lg bg-slate-800/50 hover:bg-slate-700/50 transition-colors"
+        <div class="hidden items-center gap-3 md:flex">
+          <a
+            href="/Timothy-John-Lozada-CV.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="rounded-full border border-cyan-400/40 bg-cyan-500/10 px-4 py-2 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-500/20 hover:text-white"
+          >
+            Resume
+          </a>
+        </div>
+
+        <button
+          class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-700 bg-slate-900/70 text-slate-300 transition hover:border-cyan-400/40 hover:text-white md:hidden"
           @click="isMobileMenuOpen = !isMobileMenuOpen"
           aria-label="Toggle menu"
         >
-          <svg class="w-6 h-6 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path v-if="isMobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-            <path v-else stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path v-if="isMobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            <path v-else stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
       </div>
 
-      <!-- Mobile Menu -->
-      <div 
-        v-if="isMobileMenuOpen" 
-        class="md:hidden mt-4 pb-4 space-y-4"
+      <Transition
+        enter-active-class="transition duration-200 ease-out"
+        enter-from-class="opacity-0 -translate-y-2"
+        enter-to-class="opacity-100 translate-y-0"
+        leave-active-class="transition duration-150 ease-in"
+        leave-from-class="opacity-100 translate-y-0"
+        leave-to-class="opacity-0 -translate-y-2"
       >
-        <a 
-          v-for="link in navLinks" 
-          :key="link.id"
-          :href="`#${link.id}`"
-          class="block py-2 text-slate-300 hover:text-cyan-400 transition-colors"
-          @click.prevent="scrollToSection(link.id); isMobileMenuOpen = false"
+        <div
+          v-if="isMobileMenuOpen"
+          class="mb-4 rounded-2xl border border-slate-700/60 bg-slate-950/90 p-4 backdrop-blur-xl md:hidden"
         >
-          {{ link.name }}
-        </a>
-      </div>
+          <div class="space-y-2">
+            <a
+              v-for="link in navLinks"
+              :key="link.id"
+              :href="`#${link.id}`"
+              class="block rounded-xl px-4 py-3 text-sm font-medium transition"
+              :class="activeSection === link.id ? 'bg-cyan-500/20 text-cyan-200' : 'text-slate-300 hover:bg-slate-800/70 hover:text-white'"
+              @click.prevent="scrollToSection(link.id)"
+            >
+              {{ link.name }}
+            </a>
+          </div>
+          <a
+            href="/Timothy-John-Lozada-CV.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-4 inline-flex w-full items-center justify-center rounded-xl border border-cyan-400/40 bg-cyan-500/10 px-4 py-2.5 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-500/20 hover:text-white"
+          >
+            Open Resume
+          </a>
+        </div>
+      </Transition>
     </div>
   </nav>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 
 const isMobileMenuOpen = ref(false)
+const isScrolled = ref(false)
+const activeSection = ref('hero')
+const NAVBAR_OFFSET = 96
+
+let scrollTicking = false
 
 const navLinks = [
   { id: 'hero', name: 'Home' },
@@ -72,22 +107,57 @@ const navLinks = [
   { id: 'contact', name: 'Contact' }
 ]
 
-const scrollToSection = (sectionId) => {
-  const element = document.getElementById(sectionId)
-  if (element) {
-    const offset = 80 // Navbar height
-    const elementPosition = element.getBoundingClientRect().top
-    const offsetPosition = elementPosition + window.pageYOffset - offset
-    
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: 'smooth'
-    })
-  }
+const updateNavState = () => {
+  isScrolled.value = window.scrollY > 20
 }
 
-const toggleTheme = () => {
-  // Implement theme toggle logic
-  console.log('Toggle theme')
+const handleScroll = () => {
+  if (scrollTicking) {
+    return
+  }
+
+  scrollTicking = true
+  window.requestAnimationFrame(() => {
+    updateNavState()
+    scrollTicking = false
+  })
 }
+
+const scrollToSection = (sectionId) => {
+  const section = document.getElementById(sectionId)
+  if (!section) {
+    return
+  }
+
+  activeSection.value = sectionId
+
+  const targetPosition = section.getBoundingClientRect().top + window.scrollY - NAVBAR_OFFSET
+  const top = Math.max(targetPosition, 0)
+
+  window.history.replaceState(null, '', `#${sectionId}`)
+
+  window.scrollTo({
+    top,
+    behavior: 'smooth',
+  })
+
+  isMobileMenuOpen.value = false
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll, { passive: true })
+  window.addEventListener('resize', updateNavState)
+
+  const hash = window.location.hash.replace('#', '')
+  if (hash && navLinks.some((link) => link.id === hash)) {
+    activeSection.value = hash
+  }
+
+  updateNavState()
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+  window.removeEventListener('resize', updateNavState)
+})
 </script>

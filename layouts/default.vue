@@ -1,9 +1,6 @@
 <template>
-  <div>
-    <Navbar />
-
-    <main class="pt-20">
-      <slot />
-    </main>
+  <div class="min-h-screen bg-slate-900">
+        <Navbar />
+    <slot />
   </div>
 </template>

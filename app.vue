@@ -8,7 +8,9 @@
     
     <!-- Content layer -->
     <div class="relative z-10 ">
-      <NuxtPage />
+      <NuxtLayout>
+        <NuxtPage />
+      </NuxtLayout>
     </div>
   </div>
 </template>

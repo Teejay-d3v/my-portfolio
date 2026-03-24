@@ -1,0 +1,1 @@
+import{r as t,o as r,N as i}from"./DMOV1VAp.js";const d=(o=768)=>{const n=t(!1),e=()=>{n.value=window.innerWidth<o};return r(()=>{e(),window.addEventListener("resize",e)}),i(()=>{window.removeEventListener("resize",e)}),{isMobile:n}};export{d as u};
