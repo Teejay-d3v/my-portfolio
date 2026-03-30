@@ -250,7 +250,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 
 const filters = ['All', 'Nuxt 3', 'Vue 3', 'API', 'Dashboard', 'Productivity']
 const activeFilter = ref('All')

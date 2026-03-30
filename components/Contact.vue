@@ -193,7 +193,16 @@ import { ref } from 'vue'
 import emailjs from '@emailjs/browser'
 import Swal from 'sweetalert2'
 
-const config = useRuntimeConfig()
+// Use hardcoded values instead of runtime config to avoid SSR issues
+const config = {
+  public: {
+    emailjs: {
+      serviceId: '',
+      templateId: '',
+      publicKey: ''
+    }
+  }
+}
 const floatingElements = ref(
   Array.from({ length: 8 }, (_, i) => ({
     id: i,

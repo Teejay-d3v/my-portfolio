@@ -1,15 +1,41 @@
 export default defineNuxtConfig({
+  compatibilityDate: '2026-03-30',
   modules: ['@nuxtjs/tailwindcss'],
   css: ['~/assets/css/main.css', '~/assets/css/portfolio.css'],
   nitro: {
-    preset: 'vercel'
+    preset: 'vercel',
+    vercel: {
+      config: {
+        version: 3,
+        routes: [
+          {
+            src: '/_nuxt/builds/meta/(.*)',
+            headers: {
+              'cache-control': 'public, max-age=31536000, immutable'
+            }
+          },
+          {
+            src: '/_nuxt/builds/(.*)',
+            headers: {
+              'cache-control': 'public, max-age=1, immutable'
+            }
+          },
+          {
+            src: '/_nuxt/(.*)',
+            headers: {
+              'cache-control': 'public, max-age=31536000, immutable'
+            }
+          }
+        ]
+      }
+    }
   },
   runtimeConfig: {
     public: {
       emailjs: {
-        serviceId: process.env.NUXT_PUBLIC_EMAILJS_SERVICE_ID || '',
-        templateId: process.env.NUXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',
-        publicKey: process.env.NUXT_PUBLIC_EMAILJS_PUBLIC_KEY || ''
+        serviceId: '',
+        templateId: '',
+        publicKey: ''
       }
     }
   },
