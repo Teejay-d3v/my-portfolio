@@ -7,8 +7,8 @@ const styles = {
   "node_modules/nuxt/dist/app/components/error-404.vue": () => import('./error-404-styles.DtuF77Et.mjs').then(interopDefault),
   "node_modules/nuxt/dist/app/components/error-500.vue": () => import('./error-500-styles.3g_bWYX3.mjs').then(interopDefault),
   "node_modules/nuxt/dist/app/components/error-404.vue?vue&type=style&index=0&scoped=8b7948c5&lang.css": () => import('./error-404-styles.DtuF77Et.mjs').then(interopDefault),
-  "components/Skills.vue": () => import('./Skills-styles.DDSRBZX1.mjs').then(interopDefault),
   "node_modules/nuxt/dist/app/components/error-500.vue?vue&type=style&index=0&scoped=d7edb62b&lang.css": () => import('./error-500-styles.3g_bWYX3.mjs').then(interopDefault),
+  "components/Skills.vue": () => import('./Skills-styles.DDSRBZX1.mjs').then(interopDefault),
   "components/Projects.vue": () => import('./Projects-styles.CqzHEhES.mjs').then(interopDefault),
   "components/Skills.vue?vue&type=style&index=0&scoped=c46b6db2&lang.css": () => import('./Skills-styles.DDSRBZX1.mjs').then(interopDefault),
   "components/Projects.vue?vue&type=style&index=0&scoped=b4cde928&lang.css": () => import('./Projects-styles.CqzHEhES.mjs').then(interopDefault)
