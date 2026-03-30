@@ -78,11 +78,14 @@ const HASH_RE = /#/g;
 const AMPERSAND_RE = /&/g;
 const SLASH_RE = /\//g;
 const EQUAL_RE = /=/g;
+const IM_RE = /\?/g;
 const PLUS_RE = /\+/g;
 const ENC_CARET_RE = /%5e/gi;
 const ENC_BACKTICK_RE = /%60/gi;
 const ENC_PIPE_RE = /%7c/gi;
 const ENC_SPACE_RE = /%20/gi;
+const ENC_SLASH_RE = /%2f/gi;
+const ENC_ENC_SLASH_RE = /%252f/gi;
 function encode(text) {
   return encodeURI("" + text).replace(ENC_PIPE_RE, "|");
 }
@@ -92,12 +95,18 @@ function encodeQueryValue(input) {
 function encodeQueryKey(text) {
   return encodeQueryValue(text).replace(EQUAL_RE, "%3D");
 }
+function encodePath(text) {
+  return encode(text).replace(HASH_RE, "%23").replace(IM_RE, "%3F").replace(ENC_ENC_SLASH_RE, "%2F").replace(AMPERSAND_RE, "%26").replace(PLUS_RE, "%2B");
+}
 function decode(text = "") {
   try {
     return decodeURIComponent("" + text);
   } catch {
     return "" + text;
   }
+}
+function decodePath(text) {
+  return decode(text.replace(ENC_SLASH_RE, "%252F"));
 }
 function decodeQueryKey(text) {
   return decode(text.replace(PLUS_RE, " "));
@@ -223,7 +232,10 @@ function withBase(input, base) {
   }
   const _base = withoutTrailingSlash(base);
   if (input.startsWith(_base)) {
-    return input;
+    const nextChar = input[_base.length];
+    if (!nextChar || nextChar === "/" || nextChar === "?") {
+      return input;
+    }
   }
   return joinURL(_base, input);
 }
@@ -233,6 +245,10 @@ function withoutBase(input, base) {
   }
   const _base = withoutTrailingSlash(base);
   if (!input.startsWith(_base)) {
+    return input;
+  }
+  const nextChar = input[_base.length];
+  if (nextChar && nextChar !== "/" && nextChar !== "?") {
     return input;
   }
   const trimmed = input.slice(_base.length);
@@ -883,7 +899,9 @@ function readRawBody(event, encoding = "utf8") {
     });
     return encoding ? promise2.then((buff) => buff.toString(encoding)) : promise2;
   }
-  if (!Number.parseInt(event.node.req.headers["content-length"] || "") && !String(event.node.req.headers["transfer-encoding"] ?? "").split(",").map((e) => e.trim()).filter(Boolean).includes("chunked")) {
+  if (!Number.parseInt(event.node.req.headers["content-length"] || "") && !/\bchunked\b/i.test(
+    String(event.node.req.headers["transfer-encoding"] ?? "")
+  )) {
     return Promise.resolve(void 0);
   }
   const promise = event.node.req[RawBodySymbol] = new Promise(
@@ -1529,15 +1547,6 @@ function isEventHandler(input) {
   return hasProp(input, "__is_handler__");
 }
 function toEventHandler(input, _, _route) {
-  if (!isEventHandler(input)) {
-    console.warn(
-      "[h3] Implicit event handler conversion is deprecated. Use `eventHandler()` or `fromNodeMiddleware()` to define event handlers.",
-      _route && _route !== "/" ? `
-     Route: ${_route}` : "",
-      `
-     Handler: ${input}`
-    );
-  }
   return input;
 }
 function defineLazyEventHandler(factory) {
@@ -1616,7 +1625,10 @@ function createAppEventHandler(stack, options) {
   const spacing = options.debug ? 2 : void 0;
   return eventHandler(async (event) => {
     event.node.req.originalUrl = event.node.req.originalUrl || event.node.req.url || "/";
-    const _reqPath = event._path || event.node.req.url || "/";
+    const _rawReqUrl = event.node.req.url || "/";
+    const _reqPath = _decodePath(event._path || _rawReqUrl);
+    event._path = _reqPath;
+    const _needsRawUrl = _reqPath !== _rawReqUrl;
     let _layerPath;
     if (options.onRequest) {
       await options.onRequest(event);
@@ -1634,7 +1646,7 @@ function createAppEventHandler(stack, options) {
         continue;
       }
       event._path = _layerPath;
-      event.node.req.url = _layerPath;
+      event.node.req.url = _needsRawUrl ? layer.route.length > 1 ? _rawReqUrl.slice(layer.route.length) || "/" : _rawReqUrl : _layerPath;
       const val = await layer.handler(event);
       const _body = val === void 0 ? void 0 : await val;
       if (_body !== void 0) {
@@ -1766,6 +1778,13 @@ function cachedFn(fn) {
     return cache;
   };
 }
+function _decodePath(url) {
+  const qIndex = url.indexOf("?");
+  const path = qIndex === -1 ? url : url.slice(0, qIndex);
+  const query = qIndex === -1 ? "" : url.slice(qIndex);
+  const decodedPath = path.includes("%25") ? decodePath(path.replace(/%25/g, "%2525")) : decodePath(path);
+  return decodedPath + query;
+}
 function websocketOptions(evResolver, appOptions) {
   return {
     ...appOptions.websocket,
@@ -1805,7 +1824,7 @@ function createRouter(opts = {}) {
         addRoute(path, handler, m);
       }
     } else {
-      route.handlers[method] = toEventHandler(handler, void 0, path);
+      route.handlers[method] = toEventHandler(handler);
     }
     return router;
   };
@@ -3999,7 +4018,7 @@ function _expandFromEnv(value) {
 const _inlineRuntimeConfig = {
   "app": {
     "baseURL": "/",
-    "buildId": "716e2605-3ed7-4969-9bca-f6e585db6e98",
+    "buildId": "bffadf2f-fbd6-4127-8668-f8bbcad8f745",
     "buildAssetsDir": "/_nuxt/",
     "cdnURL": ""
   },
@@ -4285,64 +4304,78 @@ function normalizeCookieHeaders(headers) {
   return outgoingHeaders;
 }
 
+/**
+* Nitro internal functions extracted from https://github.com/nitrojs/nitro/blob/v2/src/runtime/internal/utils.ts
+*/
 function isJsonRequest(event) {
-  if (hasReqHeader(event, "accept", "text/html")) {
-    return false;
-  }
-  return hasReqHeader(event, "accept", "application/json") || hasReqHeader(event, "user-agent", "curl/") || hasReqHeader(event, "user-agent", "httpie/") || hasReqHeader(event, "sec-fetch-mode", "cors") || event.path.startsWith("/api/") || event.path.endsWith(".json");
+	// If the client specifically requests HTML, then avoid classifying as JSON.
+	if (hasReqHeader(event, "accept", "text/html")) {
+		return false;
+	}
+	return hasReqHeader(event, "accept", "application/json") || hasReqHeader(event, "user-agent", "curl/") || hasReqHeader(event, "user-agent", "httpie/") || hasReqHeader(event, "sec-fetch-mode", "cors") || event.path.startsWith("/api/") || event.path.endsWith(".json");
 }
 function hasReqHeader(event, name, includes) {
-  const value = getRequestHeader(event, name);
-  return value && typeof value === "string" && value.toLowerCase().includes(includes);
+	const value = getRequestHeader(event, name);
+	return !!(value && typeof value === "string" && value.toLowerCase().includes(includes));
 }
 
 const errorHandler$0 = (async function errorhandler(error, event, { defaultHandler }) {
-  if (event.handled || isJsonRequest(event)) {
-    return;
-  }
-  const defaultRes = await defaultHandler(error, event, { json: true });
-  const statusCode = error.statusCode || 500;
-  if (statusCode === 404 && defaultRes.status === 302) {
-    setResponseHeaders(event, defaultRes.headers);
-    setResponseStatus(event, defaultRes.status, defaultRes.statusText);
-    return send(event, JSON.stringify(defaultRes.body, null, 2));
-  }
-  const errorObject = defaultRes.body;
-  const url = new URL(errorObject.url);
-  errorObject.url = withoutBase(url.pathname, useRuntimeConfig(event).app.baseURL) + url.search + url.hash;
-  errorObject.message ||= "Server Error";
-  errorObject.data ||= error.data;
-  errorObject.statusMessage ||= error.statusMessage;
-  delete defaultRes.headers["content-type"];
-  delete defaultRes.headers["content-security-policy"];
-  setResponseHeaders(event, defaultRes.headers);
-  const reqHeaders = getRequestHeaders(event);
-  const isRenderingError = event.path.startsWith("/__nuxt_error") || !!reqHeaders["x-nuxt-error"];
-  const res = isRenderingError ? null : await useNitroApp().localFetch(
-    withQuery(joinURL(useRuntimeConfig(event).app.baseURL, "/__nuxt_error"), errorObject),
-    {
-      headers: { ...reqHeaders, "x-nuxt-error": "true" },
-      redirect: "manual"
-    }
-  ).catch(() => null);
-  if (event.handled) {
-    return;
-  }
-  if (!res) {
-    const { template } = await import('./error-500.mjs');
-    setResponseHeader(event, "Content-Type", "text/html;charset=UTF-8");
-    return send(event, template(errorObject));
-  }
-  const html = await res.text();
-  for (const [header, value] of res.headers.entries()) {
-    if (header === "set-cookie") {
-      appendResponseHeader(event, header, value);
-      continue;
-    }
-    setResponseHeader(event, header, value);
-  }
-  setResponseStatus(event, res.status && res.status !== 200 ? res.status : defaultRes.status, res.statusText || defaultRes.statusText);
-  return send(event, html);
+	if (event.handled || isJsonRequest(event)) {
+		// let Nitro handle JSON errors
+		return;
+	}
+	// invoke default Nitro error handler (which will log appropriately if required)
+	const defaultRes = await defaultHandler(error, event, { json: true });
+	// let Nitro handle redirect if appropriate
+	const status = error.status || error.statusCode || 500;
+	if (status === 404 && defaultRes.status === 302) {
+		setResponseHeaders(event, defaultRes.headers);
+		setResponseStatus(event, defaultRes.status, defaultRes.statusText);
+		return send(event, JSON.stringify(defaultRes.body, null, 2));
+	}
+	const errorObject = defaultRes.body;
+	// remove proto/hostname/port from URL
+	const url = new URL(errorObject.url);
+	errorObject.url = withoutBase(url.pathname, useRuntimeConfig(event).app.baseURL) + url.search + url.hash;
+	// add default server message (keep sanitized for unhandled errors)
+	errorObject.message = error.unhandled ? errorObject.message || "Server Error" : error.message || errorObject.message || "Server Error";
+	// we will be rendering this error internally so we can pass along the error.data safely
+	errorObject.data ||= error.data;
+	errorObject.statusText ||= error.statusText || error.statusMessage;
+	delete defaultRes.headers["content-type"];
+	delete defaultRes.headers["content-security-policy"];
+	setResponseHeaders(event, defaultRes.headers);
+	// Access request headers
+	const reqHeaders = getRequestHeaders(event);
+	// Detect to avoid recursion in SSR rendering of errors
+	const isRenderingError = event.path.startsWith("/__nuxt_error") || !!reqHeaders["x-nuxt-error"];
+	// HTML response (via SSR)
+	const res = isRenderingError ? null : await useNitroApp().localFetch(withQuery(joinURL(useRuntimeConfig(event).app.baseURL, "/__nuxt_error"), errorObject), {
+		headers: {
+			...reqHeaders,
+			"x-nuxt-error": "true"
+		},
+		redirect: "manual"
+	}).catch(() => null);
+	if (event.handled) {
+		return;
+	}
+	// Fallback to static rendered error page
+	if (!res) {
+		const { template } = await import('./error-500.mjs');
+		setResponseHeader(event, "Content-Type", "text/html;charset=UTF-8");
+		return send(event, template(errorObject));
+	}
+	const html = await res.text();
+	for (const [header, value] of res.headers.entries()) {
+		if (header === "set-cookie") {
+			appendResponseHeader(event, header, value);
+			continue;
+		}
+		setResponseHeader(event, header, value);
+	}
+	setResponseStatus(event, res.status && res.status !== 200 ? res.status : defaultRes.status, res.statusText || defaultRes.statusText);
+	return send(event, html);
 });
 
 function defineNitroErrorHandler(handler) {
@@ -4621,5 +4654,5 @@ function defineRenderHandler(render) {
   });
 }
 
-export { $fetch as $, withoutTrailingSlash as A, withLeadingSlash as a, useRuntimeConfig as b, getResponseStatusText as c, getResponseStatus as d, defineRenderHandler as e, getQuery as f, getRouteRulesForPath as g, createError$1 as h, destr as i, joinRelativeURL as j, getRouteRules as k, hasProtocol as l, isScriptProtocol as m, joinURL as n, getContext as o, parseQuery as p, createHooks as q, executeAsync as r, sanitizeStatusCode as s, toNodeListener as t, useNitroApp as u, toRouteMatcher as v, withQuery as w, createRouter$1 as x, defu as y, withTrailingSlash as z };
+export { $fetch as $, withoutTrailingSlash as A, withLeadingSlash as a, useRuntimeConfig as b, getResponseStatusText as c, getResponseStatus as d, defineRenderHandler as e, getQuery as f, getRouteRulesForPath as g, createError$1 as h, destr as i, joinRelativeURL as j, getRouteRules as k, joinURL as l, parseURL as m, encodePath as n, decodePath as o, parseQuery as p, hasProtocol as q, isScriptProtocol as r, sanitizeStatusCode as s, toNodeListener as t, useNitroApp as u, getContext as v, withQuery as w, defu as x, executeAsync as y, withTrailingSlash as z };
 //# sourceMappingURL=nitro.mjs.map
