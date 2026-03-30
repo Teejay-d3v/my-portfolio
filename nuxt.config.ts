@@ -3,35 +3,8 @@ export default defineNuxtConfig({
   modules: ['@nuxtjs/tailwindcss'],
   css: ['~/assets/css/main.css', '~/assets/css/portfolio.css'],
   nitro: {
-    preset: 'vercel',
-    vercel: {
-      config: {
-        version: 3,
-        routes: [
-          {
-            src: '/_nuxt/builds/meta/(.*)',
-            headers: {
-              'cache-control': 'public, max-age=31536000, immutable'
-            }
-          },
-          {
-            src: '/_nuxt/builds/(.*)',
-            headers: {
-              'cache-control': 'public, max-age=1, immutable'
-            }
-          },
-          {
-            src: '/_nuxt/(.*)',
-            headers: {
-              'cache-control': 'public, max-age=31536000, immutable'
-            }
-          }
-        ]
-      }
-    },
-    externals: {
-      inline: ['vue-bundle-renderer', '@vue/shared']
-    }
+    preset: 'vercel'
+    // Remove the custom vercel.config and externals
   },
   runtimeConfig: {
     public: {
