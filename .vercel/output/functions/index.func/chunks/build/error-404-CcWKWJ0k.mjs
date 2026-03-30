@@ -1,5 +1,5 @@
 import { mergeProps, withCtx, createTextVNode, toDisplayString, defineComponent, shallowRef, h, resolveComponent, computed, useSSRContext } from 'vue';
-import { p as parseQuery, k as hasProtocol, m as joinURL, y as withTrailingSlash, z as withoutTrailingSlash } from '../_/nitro.mjs';
+import { p as parseQuery, l as hasProtocol, n as joinURL, z as withTrailingSlash, A as withoutTrailingSlash } from '../_/nitro.mjs';
 import { u as useRouter, a as useNuxtApp, r as resolveRouteObject, b as useRuntimeConfig, n as navigateTo, c as nuxtLinkDefaults } from './server.mjs';
 import { ssrRenderAttrs, ssrInterpolate, ssrRenderComponent } from 'vue/server-renderer';
 import { _ as _export_sfc } from './_plugin-vue_export-helper-1tPrXgE0.mjs';
@@ -12,7 +12,6 @@ import 'node:fs';
 import 'node:path';
 import 'node:crypto';
 import '../routes/renderer.mjs';
-import 'vue-bundle-renderer/runtime';
 import 'unhead/server';
 import 'devalue';
 import 'unhead/utils';

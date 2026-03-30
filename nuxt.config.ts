@@ -28,6 +28,9 @@ export default defineNuxtConfig({
           }
         ]
       }
+    },
+    externals: {
+      inline: ['vue-bundle-renderer', '@vue/shared']
     }
   },
   runtimeConfig: {
