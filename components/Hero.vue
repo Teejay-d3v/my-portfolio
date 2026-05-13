@@ -6,15 +6,10 @@
     <!-- Floating elements -->
     <div class="floating-elements">
       <div
-        v-for="i in 12"
-        :key="i"
+        v-for="element in floatingElements"
+        :key="element.id"
         class="floating-circle"
-        :style="{
-          left: `${Math.random() * 100}%`,
-          top: `${Math.random() * 100}%`,
-          animation: `float ${15 + i * 2}s linear infinite`,
-          animationDelay: `${i * 0.5}s`
-        }"
+        :style="element.style"
       ></div>
     </div>
 
@@ -22,32 +17,30 @@
     <div class="absolute inset-0 grid-pattern opacity-30"></div>
 
     <!-- Content -->
-    <div  class="section-anchor relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col lg:flex-row items-center justify-between min-h-[calc(100vh-8rem)] gap-12">
+    <div class="section-anchor relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid min-h-[calc(100vh-8rem)] items-center gap-12 lg:grid-cols-[1.02fr_0.98fr]">
         <!-- Left Content -->
-        <div class="flex-1 space-y-8 text-center lg:text-left">
+        <div class="space-y-8 text-center lg:text-left">
           <!-- Badge -->
           <div class="section-badge inline-flex mx-auto lg:mx-0">
             <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-            <span>Available for work</span>
+            <span>Frontend developer available for selected projects</span>
           </div>
 
           <!-- Heading -->
-          <div class="space-y-4 animate-fadeInUp">
-            <h1 class="section-title">
-              Hi, I'm <span>T-Jay</span>
+          <div class="space-y-5 animate-fadeInUp">
+            <h1 class="hero-title">
+              Building fast, polished interfaces with <span>Vue and Nuxt</span>.
             </h1>
-            <h2 class="text-3xl md:text-4xl text-gray-200 font-semibold">
-              Frontend Developer
-            </h2>
+            <p class="text-sm font-semibold uppercase tracking-[0.28em] text-cyan-200/80">
+              Timothy John Lozada - Frontend Developer
+            </p>
           </div>
 
           <!-- Description -->
-          <p class="text-gray-300 text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0 animate-fadeInUp delay-100">
-            I build exceptional digital experiences with 
-            <span class="text-blue-400 font-semibold">Vue.js</span> and 
-            <span class="text-blue-400 font-semibold">Nuxt.js</span>. 
-            Specialized in creating performant, accessible, and beautiful web applications.
+          <p class="max-w-2xl mx-auto text-lg leading-8 text-slate-300 animate-fadeInUp delay-100 lg:mx-0">
+            I turn product ideas into responsive, maintainable web experiences. My work focuses on
+            clean Vue components, practical UI systems, API-driven pages, and deployment-ready Nuxt apps.
           </p>
 
           <!-- CTA Buttons -->
@@ -76,36 +69,58 @@
             </a>
           </div>
 
+          <div class="flex flex-wrap justify-center gap-2 animate-fadeInUp delay-300 lg:justify-start">
+            <span
+              v-for="item in focusAreas"
+              :key="item"
+              class="rounded-full border border-slate-700/80 bg-slate-950/50 px-3 py-1.5 text-sm text-slate-300"
+            >
+              {{ item }}
+            </span>
+          </div>
+
           <!-- Stats -->
-          <div class="grid grid-cols-3 gap-6 pt-8 max-w-md mx-auto lg:mx-0 animate-fadeInUp delay-300">
-            <div v-for="stat in stats" :key="stat.label" class="text-center">
-              <div class="text-2xl font-bold text-blue-400">{{ stat.value }}</div>
-              <div class="text-sm text-gray-400">{{ stat.label }}</div>
+          <div class="grid max-w-xl gap-3 pt-2 mx-auto animate-fadeInUp delay-400 sm:grid-cols-2 lg:mx-0">
+            <div v-for="stat in stats" :key="stat.label" class="rounded-xl border border-slate-700/70 bg-slate-950/45 p-4 text-left">
+              <div class="text-2xl font-bold text-cyan-300">{{ stat.value }}</div>
+              <div class="mt-1 text-xs leading-5 text-slate-400">{{ stat.label }}</div>
             </div>
           </div>
         </div>
 
         <!-- Right Visual -->
-        <div class="flex-1 hidden lg:block animate-fadeInUp delay-200">
+        <div class="hidden lg:block animate-fadeInUp delay-200">
           <div class="relative">
-            <!-- Glowing orb -->
-            <div class="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full blur-3xl opacity-20 animate-pulse"></div>
+            <div class="absolute -inset-6 rounded-[2rem] border border-cyan-400/10 bg-cyan-400/5 blur-2xl"></div>
             
             <!-- Code window -->
-            <div class="relative glass-dark rounded-2xl overflow-hidden border border-blue-400/30">
-              <div class="flex items-center gap-2 px-4 py-3 bg-black/40 border-b border-white/10">
+            <div class="relative overflow-hidden rounded-2xl border border-cyan-400/25 bg-slate-950/80 shadow-[0_30px_90px_rgba(2,6,23,0.7)]">
+              <div class="flex items-center justify-between border-b border-white/10 bg-black/35 px-4 py-3">
+                <div class="flex items-center gap-2">
                 <div class="w-3 h-3 bg-red-400 rounded-full"></div>
                 <div class="w-3 h-3 bg-yellow-400 rounded-full"></div>
                 <div class="w-3 h-3 bg-green-400 rounded-full"></div>
-                <span class="text-xs text-gray-400 ml-2">portfolio.vue</span>
+                </div>
+                <span class="text-xs text-gray-400">components/ExperienceCard.vue</span>
               </div>
-              <div class="p-6 font-mono text-sm">
-                <pre class="text-gray-300"><span class="text-blue-400">&lt;template&gt;</span>
-  <span class="text-purple-400">&lt;div</span> <span class="text-green-400">class=</span><span class="text-yellow-400">"hero"</span><span class="text-purple-400">&gt;</span>
-    <span class="text-blue-400">&lt;h1&gt;</span>Creative Developer<span class="text-blue-400">&lt;/h1&gt;</span>
-    <span class="text-blue-400">&lt;p&gt;</span>Building the web of tomorrow<span class="text-blue-400">&lt;/p&gt;</span>
-  <span class="text-purple-400">&lt;/div&gt;</span>
-<span class="text-blue-400">&lt;/template&gt;</span></pre>
+              <div class="space-y-5 p-6">
+                <div class="grid grid-cols-3 gap-3">
+                  <div v-for="metric in buildMetrics" :key="metric.label" class="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
+                    <div class="text-xl font-bold text-white">{{ metric.value }}</div>
+                    <div class="mt-1 text-xs text-slate-400">{{ metric.label }}</div>
+                  </div>
+                </div>
+                <pre class="overflow-hidden rounded-xl border border-slate-800 bg-slate-950 p-5 font-mono text-sm leading-7 text-slate-300"><span class="text-sky-400">const</span> stack = {
+  framework: <span class="text-emerald-300">'Nuxt 3'</span>,
+  styling: <span class="text-emerald-300">'Tailwind CSS'</span>,
+  focus: [<span class="text-emerald-300">'UX'</span>, <span class="text-emerald-300">'performance'</span>, <span class="text-emerald-300">'maintainability'</span>]
+}
+
+<span class="text-sky-400">export</span> <span class="text-sky-400">default</span> ship(stack)</pre>
+                <div class="rounded-xl border border-cyan-400/20 bg-cyan-400/10 p-4">
+                  <p class="text-sm font-semibold text-cyan-100">Current focus</p>
+                  <p class="mt-1 text-sm text-slate-300">Dashboards, landing pages, API-driven apps, and Vue/Nuxt component systems.</p>
+                </div>
               </div>
             </div>
 
@@ -142,9 +157,24 @@
 <script setup>
 import { ref } from 'vue'
 
+const floatingElements = useFloatingElements(12)
+
+const focusAreas = ref([
+  'Vue 3',
+  'Nuxt 3',
+  'Tailwind CSS',
+  'Responsive UI',
+  'API Integration'
+])
+
 const stats = ref([
-  { value: '3+', label: 'Years Experience' },
-  { value: '20+', label: 'Projects' },
-  { value: '100%', label: 'Satisfaction' }
+  { value: '4+', label: 'Years of frontend experience' },
+  { value: 'Vue/Nuxt', label: 'Primary production stack' }
+])
+
+const buildMetrics = ref([
+  { value: 'SSR', label: 'Nuxt ready' },
+  { value: 'A11y', label: 'Usable UI' },
+  { value: 'DX', label: 'Clean code' }
 ])
 </script>

@@ -6,15 +6,10 @@
     <!-- Floating elements -->
     <div class="floating-elements">
       <div
-        v-for="i in 12"
-        :key="i"
+        v-for="element in floatingElements"
+        :key="element.id"
         class="floating-circle"
-        :style="{
-          left: `${Math.random() * 100}%`,
-          top: `${Math.random() * 100}%`,
-          animation: `float ${15 + i * 2}s linear infinite`,
-          animationDelay: `${i * 0.5}s`
-        }"
+        :style="element.style"
       ></div>
     </div>
 
@@ -44,6 +39,7 @@
         <button 
           v-for="filter in filters" 
           :key="filter"
+          type="button"
           @click="activeFilter = filter"
           class="px-4 py-2 rounded-full transition-all duration-300 text-sm"
           :class="activeFilter === filter 
@@ -61,7 +57,11 @@
           :key="project.title"
           class="group portfolio-card p-6 animate-fadeInUp cursor-pointer hover-lift"
           :class="`delay-${(index % 5) * 100}`"
+          role="button"
+          tabindex="0"
           @click="openModal(project)"
+          @keydown.enter.prevent="openModal(project)"
+          @keydown.space.prevent="openModal(project)"
         >
           <!-- Image -->
           <div class="relative h-48 rounded-xl overflow-hidden mb-4">
@@ -148,6 +148,8 @@
           </h3>
           <button 
             @click="closeModal"
+            type="button"
+            aria-label="Close project details"
             class="text-gray-400 hover:text-white bg-slate-800/50 hover:bg-slate-700 rounded-full p-2 transition-colors absolute right-4 top-4"
           >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -236,6 +238,7 @@
             </a>
             <button 
               @click="closeModal"
+              type="button"
               class="flex-1 px-4 py-3 bg-slate-800/50 hover:bg-slate-700/50 text-white font-semibold rounded-lg text-center transition-all duration-300 hover:scale-[1.02] border border-slate-700 text-sm md:text-base"
             >
               Close
@@ -251,6 +254,8 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
+
+const floatingElements = useFloatingElements(12)
 
 const filters = ['All', 'Nuxt 3', 'Vue 3', 'API', 'Dashboard', 'Productivity']
 const activeFilter = ref('All')
@@ -423,7 +428,6 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-/* Modal transitions */
 .modal-enter-active,
 .modal-leave-active {
   transition: all 0.3s ease;
@@ -435,44 +439,6 @@ onUnmounted(() => {
   transform: scale(0.95);
 }
 
-/* Custom scrollbar for modal */
-.custom-scrollbar::-webkit-scrollbar {
-  width: 8px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.5);
-  border-radius: 4px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #3b82f6, #06b6d4);
-  border-radius: 4px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #2563eb, #0891b2);
-}
-
-/* Ensure modal is above everything */
-.fixed {
-  z-index: 9999;
-}
-
-
-/* Modal transitions */
-.modal-enter-active,
-.modal-leave-active {
-  transition: all 0.3s ease;
-}
-
-.modal-enter-from,
-.modal-leave-to {
-  opacity: 0;
-  transform: scale(0.95);
-}
-
-/* Custom scrollbar for modal */
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
 }
@@ -491,17 +457,6 @@ onUnmounted(() => {
   background: linear-gradient(135deg, #2563eb, #0891b2);
 }
 
-/* Ensure modal is above everything */
-.fixed {
-  z-index: 9999;
-}
-
-/* Prevent body scroll when modal is open */
-body.modal-open {
-  overflow: hidden;
-}
-
-/* Responsive adjustments */
 @media (max-width: 640px) {
   .modal-content {
     max-height: 95vh;

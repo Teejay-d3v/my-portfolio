@@ -38,6 +38,14 @@
   .portfolio-section {
     padding: 3rem 2.5rem 4.5rem;
   }
+
+  .section-title {
+    font-size: 3.2rem;
+  }
+
+  .hero-title {
+    font-size: 4.8rem;
+  }
 }
 
 .section-overlay {
@@ -123,10 +131,22 @@
 
 .section-title {
   color: var(--text-main);
-  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-size: 2.25rem;
   line-height: 1.1;
   font-weight: 800;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
+}
+
+.hero-title {
+  color: var(--text-main);
+  font-size: 3rem;
+  line-height: 1;
+  font-weight: 850;
+  letter-spacing: 0;
+}
+
+.hero-title span {
+  color: var(--brand-1);
 }
 
 .section-title span {

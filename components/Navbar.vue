@@ -89,33 +89,62 @@
   </nav>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
+import { useNavLinks } from '@/composables/useNavLinks'
 
+// State
 const isMobileMenuOpen = ref(false)
 const isScrolled = ref(false)
 const activeSection = ref('hero')
 const NAVBAR_OFFSET = 96
-
+const ACTIVE_SECTION_OFFSET = 140
 let scrollTicking = false
 
-const navLinks = [
-  { id: 'hero', name: 'Home' },
-  { id: 'about', name: 'About' },
-  { id: 'skills', name: 'Skills' },
-  { id: 'projects', name: 'Projects' },
-  { id: 'contact', name: 'Contact' }
-]
+// Navigation links (extracted to composable for reusability)
+const navLinks = useNavLinks()
 
+/**
+ * Update navigation bar state on scroll/resize
+ */
 const updateNavState = () => {
   isScrolled.value = window.scrollY > 20
+  updateActiveSection()
 }
 
-const handleScroll = () => {
-  if (scrollTicking) {
+/**
+ * Keep the highlighted nav item aligned with the section currently in view.
+ */
+const updateActiveSection = () => {
+  const scrollPosition = window.scrollY + ACTIVE_SECTION_OFFSET
+  const documentHeight = document.documentElement.scrollHeight
+  const viewportBottom = window.innerHeight + window.scrollY
+
+  if (viewportBottom >= documentHeight - 2) {
+    activeSection.value = navLinks.value[navLinks.value.length - 1]?.id || 'contact'
     return
   }
 
+  let currentSection = navLinks.value[0]?.id || 'hero'
+
+  for (const link of navLinks.value) {
+    const section = document.getElementById(link.id)
+    if (!section) continue
+
+    const sectionTop = section.getBoundingClientRect().top + window.scrollY
+    if (scrollPosition >= sectionTop) {
+      currentSection = link.id
+    }
+  }
+
+  activeSection.value = currentSection
+}
+
+/**
+ * Throttled scroll handler for performance
+ */
+const handleScroll = () => {
+  if (scrollTicking) return
   scrollTicking = true
   window.requestAnimationFrame(() => {
     updateNavState()
@@ -123,37 +152,29 @@ const handleScroll = () => {
   })
 }
 
-const scrollToSection = (sectionId) => {
+/**
+ * Smoothly scroll to a section and update active state
+ */
+const scrollToSection = (sectionId: string) => {
   const section = document.getElementById(sectionId)
-  if (!section) {
-    return
-  }
-
+  if (!section) return
   activeSection.value = sectionId
-
   const targetPosition = section.getBoundingClientRect().top + window.scrollY - NAVBAR_OFFSET
   const top = Math.max(targetPosition, 0)
-
   window.history.replaceState(null, '', `#${sectionId}`)
-
-  window.scrollTo({
-    top,
-    behavior: 'smooth',
-  })
-
+  window.scrollTo({ top, behavior: 'smooth' })
   isMobileMenuOpen.value = false
 }
 
 onMounted(() => {
   window.addEventListener('scroll', handleScroll, { passive: true })
   window.addEventListener('resize', updateNavState)
-
   const hash = window.location.hash.replace('#', '')
-  if (hash && navLinks.some((link) => link.id === hash)) {
+  if (hash && navLinks.value.some((link) => link.id === hash)) {
     activeSection.value = hash
   }
-
   updateNavState()
+  window.requestAnimationFrame(updateNavState)
 })
 
 onUnmounted(() => {
