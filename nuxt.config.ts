@@ -2,6 +2,26 @@ export default defineNuxtConfig({
   compatibilityDate: '2026-03-30',
   modules: ['@nuxtjs/tailwindcss'],
   css: ['~/assets/css/main.css', '~/assets/css/portfolio.css'],
+  sourcemap: {
+    client: false,
+    server: false
+  },
+  vite: {
+    build: {
+      rollupOptions: {
+        onwarn(warning, warn) {
+          if (
+            warning.message.includes('nuxt:module-preload-polyfill') &&
+            warning.message.includes('Sourcemap is likely to be incorrect')
+          ) {
+            return
+          }
+
+          warn(warning)
+        }
+      }
+    }
+  },
   routeRules: {
     '/': { prerender: true }
   },
