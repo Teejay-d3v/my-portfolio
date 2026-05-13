@@ -193,22 +193,23 @@ import { ref } from 'vue'
 import emailjs from '@emailjs/browser'
 import Swal from 'sweetalert2'
 
-// Use hardcoded values instead of runtime config to avoid SSR issues
-const config = {
-  public: {
-    emailjs: {
-      serviceId: '',
-      templateId: '',
-      publicKey: ''
-    }
-  }
-}
+const config = useRuntimeConfig()
+const floatingElementPositions = [
+  { left: '8%', top: '18%' },
+  { left: '22%', top: '68%' },
+  { left: '36%', top: '34%' },
+  { left: '49%', top: '82%' },
+  { left: '63%', top: '22%' },
+  { left: '76%', top: '58%' },
+  { left: '88%', top: '38%' },
+  { left: '94%', top: '76%' }
+]
+
 const floatingElements = ref(
-  Array.from({ length: 8 }, (_, i) => ({
+  floatingElementPositions.map((position, i) => ({
     id: i,
     style: {
-      left: `${Math.random() * 100}%`,
-      top: `${Math.random() * 100}%`,
+      ...position,
       animation: `float ${16 + i * 2}s linear infinite`,
       animationDelay: `${i * 0.4}s`
     }

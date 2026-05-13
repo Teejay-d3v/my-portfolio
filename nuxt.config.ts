@@ -2,16 +2,15 @@ export default defineNuxtConfig({
   compatibilityDate: '2026-03-30',
   modules: ['@nuxtjs/tailwindcss'],
   css: ['~/assets/css/main.css', '~/assets/css/portfolio.css'],
-  nitro: {
-    preset: 'vercel'
-    // Remove the custom vercel.config and externals
+  routeRules: {
+    '/': { prerender: true }
   },
   runtimeConfig: {
     public: {
       emailjs: {
-        serviceId: '',
-        templateId: '',
-        publicKey: ''
+        serviceId: process.env.NUXT_PUBLIC_EMAILJS_SERVICE_ID || '',
+        templateId: process.env.NUXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',
+        publicKey: process.env.NUXT_PUBLIC_EMAILJS_PUBLIC_KEY || ''
       }
     }
   },
